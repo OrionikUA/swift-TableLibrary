@@ -1,23 +1,20 @@
 // swift-tools-version: 5.9
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "TableLibrary-V2",
+    name: "TableLibrary",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "TableLibrary-V2",
-            targets: ["TableLibrary-V2"]),
+            name: "TableLibrary",
+            targets: ["TableLibrary"]),
+    ],
+    dependencies: [
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "TableLibrary-V2"),
-        .testTarget(
-            name: "TableLibrary-V2Tests",
-            dependencies: ["TableLibrary-V2"]),
+            name: "TableLibrary",
+            dependencies: [],
+            path: "Sources"),
     ]
 )
