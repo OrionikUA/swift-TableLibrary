@@ -24,7 +24,7 @@ struct CellView<T: Identifiable>: View {
         HStack(spacing: 0) {
             if let model = model {
                 ForEach(column.contents.sorted(by: ColumnContentInfo.sorted)) { content in
-                    CellContentView(type: content.type, content: content.content(model), color: content.color)
+                    CellContentView(type: content.type, content: content.content(model), color: content.color(model))
                 }
             } else {
                 if (column.titleAlighnment == .center || column.titleAlighnment == .trailing) {
