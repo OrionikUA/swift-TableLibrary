@@ -6,28 +6,28 @@ public struct TableView<T: Identifiable>: View {
     
     let columnsInfo: [ColumnInfo<T>]
     let data: [T]
-    let lockHeadLine: Bool
+    let settings: TableSettings
     
-    public init(columnsInfo: [ColumnInfo<T>], data: [T], lockHeadLine: Bool) {
+    public init(columnsInfo: [ColumnInfo<T>], data: [T], settings: TableSettings) {
         self.columnsInfo = columnsInfo
         self.data = data
-        self.lockHeadLine = lockHeadLine
+        self.settings = settings
     }
     
     public var body: some View {
         VStack(spacing: 0) {
-            if (lockHeadLine) {
-                TableLineView(columnsInfo: columnsInfo, model: nil)
+            if (settings.lockHeadLine) {
+                TableLineView(columnsInfo: columnsInfo, model: nil, settings: settings)
                     .fixedSize(horizontal: false, vertical: true)
             }
             ScrollView {
                 VStack(spacing: 0) {
-                    if (!lockHeadLine) {
-                        TableLineView(columnsInfo: columnsInfo, model: nil)
+                    if (!settings.lockHeadLine) {
+                        TableLineView(columnsInfo: columnsInfo, model: nil, settings: settings)
                     }
                     TableLineDivider()
                     ForEach(data) { input in
-                        TableLineView(columnsInfo: columnsInfo, model: input)
+                        TableLineView(columnsInfo: columnsInfo, model: input, settings: settings)
                         TableLineDivider()
                     }
                 }
