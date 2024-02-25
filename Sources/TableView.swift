@@ -19,14 +19,13 @@ public struct TableView<T: Identifiable>: View {
             if (lockHeadLine) {
                 TableLineView(columnsInfo: columnsInfo, model: nil)
                     .fixedSize(horizontal: false, vertical: true)
-                TableLineDivider()
             }
             ScrollView {
                 VStack(spacing: 0) {
                     if (!lockHeadLine) {
                         TableLineView(columnsInfo: columnsInfo, model: nil)
-                        TableLineDivider()
                     }
+                    TableLineDivider()
                     ForEach(data) { input in
                         TableLineView(columnsInfo: columnsInfo, model: input)
                         TableLineDivider()

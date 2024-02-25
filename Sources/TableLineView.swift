@@ -10,11 +10,10 @@ struct TableLineView<T: Identifiable>: View {
         HStack(spacing: 0) {
             let sortedColumns = columnsInfo.sorted(by: ColumnInfo.sorted)
             let lastId = sortedColumns.last?.id ?? 0
+            ColumnDivider()
             ForEach(sortedColumns) { column in
                 CellView(column: column, model: model)
-                if (column.id != lastId) {
-                    ColumnDivider()
-                }
+                ColumnDivider()
             }
         }
     }
