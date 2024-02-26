@@ -13,7 +13,7 @@ struct CellView<T: Identifiable>: View {
     }
     
     var hoverBackground: (Bool, Color) {
-        (!isHeadLine && hoverState && column.hoverColor != nil, isHeadLine ? .clear : column.hoverColor!(model!))
+        (!isHeadLine && hoverState && column.hoverColor != nil, isHeadLine || column.hoverColor == nil ? .clear : column.hoverColor!(model!))
     }
     
     var headlineBackground: (Bool, Color) {
