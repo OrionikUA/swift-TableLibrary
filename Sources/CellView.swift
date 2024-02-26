@@ -42,7 +42,7 @@ struct CellView<T: Identifiable>: View {
         }
         .simplePadding()
         .conditionalFrame(width: column.width)
-        .conditionalHandHover(show: column.handHover && !isHeadLine, isHovering: $hoverState)
+        .conditionalHandHover(show: !isHeadLine && column.handHover(model!), isHovering: $hoverState)
         .conditionalBackground(values: [headlineBackground, hoverBackground], defaultColor: defaultBackground)
         .conditionalOnTapGesture(show: model != nil && column.clickAction != nil, action: { column.clickAction!(model!) })
     }

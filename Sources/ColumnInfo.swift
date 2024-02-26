@@ -8,7 +8,7 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
     let color: (T) -> Color
     let width: CGFloat?
     let hoverColor: ((T) -> Color)?
-    let handHover: Bool
+    let handHover: (T) -> Bool
     let titleContent: String
     let titleContentType: ColumnContentType
     let titleContentColor: Color
@@ -20,7 +20,7 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
         return obj1.id < obj2.id
     }
     
-    public init(id: Int, contents: [ColumnContentInfo<T>], color: @escaping (T) -> Color, width: CGFloat?, hoverColor: ((T) -> Color)?, handHover: Bool, titleContent: String, titleContentType: ColumnContentType, titleContentColor: Color, titleContentBackColor: Color, titleAlighnment: HorizontalAlignment, clickAction: ((T) -> Void)? = nil) {
+    public init(id: Int, contents: [ColumnContentInfo<T>], color: @escaping (T) -> Color, width: CGFloat?, hoverColor: ((T) -> Color)?, handHover: @escaping (T) -> Bool, titleContent: String, titleContentType: ColumnContentType, titleContentColor: Color, titleContentBackColor: Color, titleAlighnment: HorizontalAlignment, clickAction: ((T) -> Void)? = nil) {
         self.id = id
         self.contents = contents
         self.color = color
