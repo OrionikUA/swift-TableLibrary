@@ -13,11 +13,15 @@ struct CellView<T: Identifiable>: View {
     }
     
     var hoverBackground: (Bool, Color) {
-        (hoverState && column.hoverColor != nil, column.hoverColor ?? .clear)
+        (!isHeadLine && hoverState && column.hoverColor != nil, isHeadLine ? .clear : column.hoverColor!(model!))
     }
     
     var headlineBackground: (Bool, Color) {
         (isHeadLine, column.titleContentBackColor)
+    }
+    
+    var defaultBackground: Color {
+        isHeadLine ? .clear : column.color(model!)
     }
     
     var body: some View {
@@ -39,7 +43,7 @@ struct CellView<T: Identifiable>: View {
         .simplePadding()
         .conditionalFrame(width: column.width)
         .conditionalHandHover(show: column.handHover && !isHeadLine, isHovering: $hoverState)
-        .conditionalBackground(values: [headlineBackground, hoverBackground], defaultColor: column.color)
+        .conditionalBackground(values: [headlineBackground, hoverBackground], defaultColor: defaultBackground)
         .conditionalOnTapGesture(show: model != nil && column.clickAction != nil, action: { column.clickAction!(model!) })
     }
 }
