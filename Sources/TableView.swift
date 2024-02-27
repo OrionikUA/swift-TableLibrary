@@ -16,13 +16,13 @@ public struct TableView<T: Identifiable>: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            if (settings.lockHeadLine) {
+            if (!settings.hideHeadLine && settings.lockHeadLine) {
                 TableLineView(columnsInfo: columnsInfo, model: nil, settings: settings)
                     .fixedSize(horizontal: false, vertical: true)
             }
             ScrollView {
                 VStack(spacing: 0) {
-                    if (!settings.lockHeadLine) {
+                    if (!settings.hideHeadLine && !settings.lockHeadLine) {
                         TableLineView(columnsInfo: columnsInfo, model: nil, settings: settings)
                     }
                     TableLineDivider()
