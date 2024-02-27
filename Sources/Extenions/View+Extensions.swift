@@ -54,4 +54,12 @@ extension View {
         }
         return AnyView(self)
     }
+    
+    func conditionalMultiLine(_ add: Bool) -> some View {
+        if (add) {
+            return AnyView(self)
+        } else {
+            return AnyView(self.lineLimit(1).truncationMode(.tail))
+        }
+    }
 }

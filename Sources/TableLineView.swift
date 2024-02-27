@@ -15,7 +15,7 @@ struct TableLineView<T: Identifiable>: View {
                 ColumnDivider()
             }
             ForEach(sortedColumns) { column in
-                CellView(column: column, model: model)
+                CellView(column: column, model: model, settings: settings)
                 if (lastId != column.id || settings.addRightBorder) {
                     ColumnDivider()
                 }

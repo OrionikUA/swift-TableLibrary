@@ -6,13 +6,13 @@ struct CellContentView: View {
     var type: ColumnContentType
     var content: String
     var color: Color?
+    let settings: TableSettings
     
     var body: some View {
         Group {
             if (type == .text) {
                 Text(content)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
+                    .conditionalMultiLine(settings.multiLine)
             } else if (type == .sysemImage) {
                 ZStack {
                     Image(systemName: content)
