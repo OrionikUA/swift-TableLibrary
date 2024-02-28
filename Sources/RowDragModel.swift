@@ -14,7 +14,7 @@ public struct RowDragInput<T: Identifiable> {
     public let source: T
     public let target: T
     
-    init(source: T, target: T) {
+    public init(source: T, target: T) {
         self.source = source
         self.target = target
     }
