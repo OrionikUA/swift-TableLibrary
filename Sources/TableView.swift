@@ -15,6 +15,9 @@ public struct TableView<T: IdentifiableAndTransferable>: View {
         guard let selectedItem = selectedItem else {
             return false
         }
+        if (selectedItem.id == item.id) {
+            print("Selected")
+        }
         return selectedItem.id == item.id
     }
     

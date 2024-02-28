@@ -10,11 +10,7 @@ struct TableLineDivider: View {
     }
     
     var body: some View {
-        if (isSelected) {
-            Divider()
-                .background(Color.accentColor)
-        } else {
-            Divider()
-        }
+        Divider()
+            .conditionalBackground(show: isSelected, color: .accentColor)
     }
 }

@@ -91,7 +91,7 @@ extension View {
     
     func conditionalDropDestination<T: IdentifiableAndTransferable>(_ add: Bool, item: T, action: @escaping (_ items: [T.ID], _ location: CGPoint) -> Bool, isTargeted: @escaping (Bool) -> Void = { _ in }) -> some View {
         if (add) {
-            return AnyView(self.dropDestination(for: T.ID.self, action: action))
+            return AnyView(self.dropDestination(for: T.ID.self, action: action, isTargeted: isTargeted))
         } else {
             return AnyView(self)
         }
