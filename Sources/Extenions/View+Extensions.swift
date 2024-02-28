@@ -16,6 +16,14 @@ extension View {
         }
     }
     
+    func conditionalForegroundColor(show: Bool, color: Color) -> some View {
+        if (show) {
+            return AnyView(self.foregroundStyle(color))
+        } else {
+            return AnyView(self)
+        }
+    }
+    
     func conditionalForegroundColor(color: Color?) -> some View {
         if let unwrappedColor = color {
             return AnyView(self.foregroundStyle(unwrappedColor))
@@ -43,6 +51,14 @@ extension View {
         })
     }
     
+    func conditionalBackground(show: Bool, color: Color) -> some View {
+        if (show) {
+            return AnyView(self.background(color))
+        } else {
+            return AnyView(self)
+        }
+    }
+    
     func conditionalBackground(values: [(Bool, Color)], defaultColor: Color? = nil) -> some View {
         for value in values {
             if (value.0) {
@@ -60,6 +76,24 @@ extension View {
             return AnyView(self)
         } else {
             return AnyView(self.lineLimit(1).truncationMode(.tail))
+        }
+    }
+    
+    func conditionalDraggable<T: IdentifiableAndTransferable, Content1: View>(_ add: Bool, item: T, @ViewBuilder navigationView: () -> Content1) -> some View {
+        if (add) {
+            return AnyView(self.draggable(item.id) {
+                navigationView()
+            })
+        } else {
+            return AnyView(self)
+        }
+    }
+    
+    func conditionalDropDestination<T: IdentifiableAndTransferable>(_ add: Bool, item: T, action: @escaping (_ items: [T.ID], _ location: CGPoint) -> Bool, isTargeted: @escaping (Bool) -> Void = { _ in }) -> some View {
+        if (add) {
+            return AnyView(self.dropDestination(for: T.ID.self, action: action))
+        } else {
+            return AnyView(self)
         }
     }
 }
