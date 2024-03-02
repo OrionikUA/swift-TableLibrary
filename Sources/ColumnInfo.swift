@@ -15,12 +15,13 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
     let titleContentBackColor: Color
     let titleAlighnment: HorizontalAlignment
     let clickAction: ((T) -> Void)?
+    let clickColor: ((T) -> Color)?
     
     static func sorted(obj1: ColumnInfo<T>, obj2: ColumnInfo<T>) -> Bool {
         return obj1.id < obj2.id
     }
     
-    public init(id: Int, contents: [ColumnContentInfo<T>], color: @escaping (T) -> Color, width: CGFloat?, hoverColor: ((T) -> Color)?, handHover: @escaping (T) -> Bool, titleContent: String, titleContentType: ColumnContentType, titleContentColor: Color, titleContentBackColor: Color, titleAlighnment: HorizontalAlignment, clickAction: ((T) -> Void)? = nil) {
+    public init(id: Int, contents: [ColumnContentInfo<T>], color: @escaping (T) -> Color, width: CGFloat?, hoverColor: ((T) -> Color)?, handHover: @escaping (T) -> Bool, titleContent: String, titleContentType: ColumnContentType, titleContentColor: Color, titleContentBackColor: Color, titleAlighnment: HorizontalAlignment, clickColor: ((T) -> Color)?, clickAction: ((T) -> Void)? = nil) {
         self.id = id
         self.contents = contents
         self.color = color
@@ -33,5 +34,6 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
         self.titleContentBackColor = titleContentBackColor
         self.titleAlighnment = titleAlighnment
         self.clickAction = clickAction
+        self.clickColor = clickColor
     }
 }

@@ -8,9 +8,14 @@ struct CellView<T: Identifiable>: View {
     let settings: TableSettings
     
     @State private var hoverState = false
+    @State private var clickState = false
     
     var isHeadLine: Bool {
         model == nil
+    }
+    
+    var clickBackgrround: (Bool, Color) {
+        (clickState && column.clickColor != nil && !isHeadLine, column.clickColor != nil && !isHeadLine ? column.clickColor!(model!) : .clear)
     }
     
     var hoverBackground: (Bool, Color) {
@@ -44,7 +49,14 @@ struct CellView<T: Identifiable>: View {
         .simplePadding()
         .conditionalFrame(width: column.width)
         .conditionalHandHover(show: !isHeadLine && column.handHover(model!), isHovering: $hoverState)
-        .conditionalBackground(values: [headlineBackground, hoverBackground], defaultColor: defaultBackground)
-        .conditionalOnTapGesture(show: model != nil && column.clickAction != nil, action: { column.clickAction!(model!) })
+        .conditionalBackground(values: [headlineBackground, clickBackgrround, hoverBackground], defaultColor: defaultBackground)
+        .conditionalOnTapGesture(show: model != nil && column.clickAction != nil, action: { clickState = true; column.clickAction!(model!) })
+        .onChange(of: clickState) { oldValue, newValue in
+            if (newValue) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    clickState = false
+                }
+            }
+        }
     }
 }
