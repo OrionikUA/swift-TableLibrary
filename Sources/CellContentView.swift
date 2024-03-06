@@ -14,7 +14,7 @@ struct CellContentView: View {
                 Text(content)
                     .conditionalMultiLine(settings.multiLine)
             } else if (type == .sysemImage) {
-                HStack(spacing: 0) {
+                VStack(spacing: 0) {
                     Spacer(minLength: 0)
                     Image(systemName: content)
                     Text("e")
