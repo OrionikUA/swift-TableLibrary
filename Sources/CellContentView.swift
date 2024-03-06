@@ -14,10 +14,12 @@ struct CellContentView: View {
                 Text(content)
                     .conditionalMultiLine(settings.multiLine)
             } else if (type == .sysemImage) {
-                ZStack {
+                HStack(spacing: 0) {
+                    Spacer(minLength: 0)
                     Image(systemName: content)
                     Text("e")
                         .opacity(0.001)
+                    Spacer(minLength: 0)
                 }
             } else if (type == .spacer) {
                 Spacer(minLength: 0)
