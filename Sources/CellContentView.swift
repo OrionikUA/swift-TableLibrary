@@ -14,11 +14,7 @@ struct CellContentView: View {
                 Text(content)
                     .conditionalMultiLine(settings.multiLine)
             } else if (type == .sysemImage) {
-                ZStack {
-                    Image(systemName: content)
-                    Text("e")
-                        .opacity(0.001)
-                }
+                Image(systemName: content)
             } else if (type == .spacer) {
                 Spacer(minLength: 0)
             }
