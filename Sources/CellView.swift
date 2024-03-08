@@ -31,20 +31,24 @@ struct CellView<T: Identifiable>: View {
     }
     
     var body: some View {
-        HStack(spacing: 0) {
-            if let model = model {
-                ForEach(column.contents.sorted(by: ColumnContentInfo.sorted)) { content in
-                    CellContentView(type: content.type, content: content.content(model), color: content.color(model), settings: settings)
-                }
-            } else {
-                if (column.titleAlighnment == .center || column.titleAlighnment == .trailing) {
-                    Spacer(minLength: 0)
-                }
-                CellContentView(type: column.titleContentType, content: column.titleContent, color: column.titleContentColor, settings: settings)
-                if (column.titleAlighnment == .center || column.titleAlighnment == .leading) {
-                    Spacer(minLength: 0)
+        VStack(spacing: 0) {
+            Spacer(minLength: 0)
+            HStack(spacing: 0) {
+                if let model = model {
+                    ForEach(column.contents.sorted(by: ColumnContentInfo.sorted)) { content in
+                        CellContentView(type: content.type, content: content.content(model), color: content.color(model), settings: settings)
+                    }
+                } else {
+                    if (column.titleAlighnment == .center || column.titleAlighnment == .trailing) {
+                        Spacer(minLength: 0)
+                    }
+                    CellContentView(type: column.titleContentType, content: column.titleContent, color: column.titleContentColor, settings: settings)
+                    if (column.titleAlighnment == .center || column.titleAlighnment == .leading) {
+                        Spacer(minLength: 0)
+                    }
                 }
             }
+            Spacer(minLength: 0)
         }
         .simplePadding()
         .conditionalFrame(width: column.width)
