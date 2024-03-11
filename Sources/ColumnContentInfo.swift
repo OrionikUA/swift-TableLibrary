@@ -42,6 +42,10 @@ extension TableDefaults {
             ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: nil, content: {_ in content })
         }
     
+        public func text<T: Identifiable>(_ id: Int, content: @escaping ((T) -> String)) -> ColumnContentInfo<T> {
+            ColumnContentInfo(id: id, defaults: self, type: .text, color: nil, content: content)
+        }
+    
 //    public func systemImage<T: Identifiable>(_ id: Int, color: ((T) -> Color)? = nil, content: ((T) -> String)? = nil) -> ColumnContentInfo<T> {
 //        ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color, content: content)
 //    }
