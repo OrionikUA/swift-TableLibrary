@@ -23,7 +23,7 @@ struct CellView<T: Identifiable>: View {
     }
     
     var headlineBackground: (Bool, Color) {
-        (isHeadLine, column.titleContentBackColor)
+        (isHeadLine, column.title.backColor)
     }
     
     var defaultBackground: Color {
@@ -39,11 +39,16 @@ struct CellView<T: Identifiable>: View {
                         CellContentView(type: content.type, content: content.content(model), color: content.color(model), settings: settings)
                     }
                 } else {
-                    if (column.titleAlighnment == .center || column.titleAlighnment == .trailing) {
+                    if (column.title.alighnment == .center || column.title.alighnment == .trailing) {
                         Spacer(minLength: 0)
                     }
-                    CellContentView(type: column.titleContentType, content: column.titleContent, color: column.titleContentColor, settings: settings)
-                    if (column.titleAlighnment == .center || column.titleAlighnment == .leading) {
+                    if let titleText = column.title.text {
+                        CellContentView(type: .text, content: titleText, color: column.title.textColor, settings: settings)
+                    }
+                    if let titleSystemImage = column.title.systemImage {
+                        CellContentView(type: .sysemImage, content: titleSystemImage, color: column.title.textColor, settings: settings)
+                    }
+                    if (column.title.alighnment == .center || column.title.alighnment == .leading) {
                         Spacer(minLength: 0)
                     }
                 }

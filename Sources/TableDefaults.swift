@@ -3,11 +3,17 @@ import SwiftUI
 
 @available(macOS 14, *)
 public struct TableDefaults {
-    public let ColumnContentColor: Color
-    public let ColumnContent: String
+    let columnContentColor: Color
+    let columnContent: String
+    let titleTextColor: Color
+    let titleBackColor: Color
+    let titleAlighnment: HorizontalAlignment
     
-    public init(ColumnContentColor: Color, ColumnContent: String) {
-        self.ColumnContentColor = ColumnContentColor
-        self.ColumnContent = ColumnContent
+    public init(columnContentColor: Color, columnContent: String, titleTextColor: Color, titleBackColor: Color, titleAlighnment: HorizontalAlignment) {
+        self.columnContentColor = columnContentColor
+        self.columnContent = columnContent
+        self.titleTextColor = titleTextColor
+        self.titleBackColor = titleBackColor
+        self.titleAlighnment = titleAlighnment
     }
 }

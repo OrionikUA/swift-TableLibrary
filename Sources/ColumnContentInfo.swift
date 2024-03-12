@@ -23,8 +23,8 @@ public struct ColumnContentInfo<T>: Identifiable {
     public init(id: Int, defaults: TableDefaults, type: ColumnContentType, color: ((T) -> Color?)? = nil, content: ((T) -> String)? = nil) {
         self.id = id
         self.type = type
-        self.color = color ?? { _ in defaults.ColumnContentColor}
-        self.content = content ?? {_ in defaults.ColumnContent}
+        self.color = color ?? { _ in defaults.columnContentColor}
+        self.content = content ?? {_ in defaults.columnContent}
     }
 }
 
@@ -49,36 +49,4 @@ extension TableDefaults {
         public func systemImage<T: Identifiable>(_ id: Int, color: @escaping (T) -> Color?, content: @escaping (T) -> String) -> ColumnContentInfo<T> {
             ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color, content: content)
         }
-    
-//    public func systemImage<T: Identifiable>(_ id: Int, color: ((T) -> Color)? = nil, content: ((T) -> String)? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color, content: content)
-//    }
-//    
-//    public func systemImage<T: Identifiable>(_ id: Int, color: Color? = nil, content: ((T) -> String)? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color == nil ? nil : { _ in color! }, content: content)
-//    }
-//    
-//    public func systemImage<T: Identifiable>(_ id: Int, color: Color? = nil, content: String? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color == nil ? nil : { _ in color! }, content: content == nil ? nil : {_ in content! })
-//    }
-//    
-//    public func systemImage<T: Identifiable>(_ id: Int, color: ((T) -> Color)? = nil, content: String? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color, content: content == nil ? nil : {_ in content! })
-//    }
-//    
-//    public func text<T: Identifiable>(_ id: Int, color: ((T) -> Color)? = nil, content: ((T) -> String)? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .text, color: color, content: content)
-//    }
-//    
-//    public func text<T: Identifiable>(_ id: Int, color: Color? = nil, content: ((T) -> String)? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .text, color: color == nil ? nil : { _ in color! }, content: content)
-//    }
-//    
-//    public func text<T: Identifiable>(_ id: Int, color: Color? = nil, content: String? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .text, color: color == nil ? nil : { _ in color! }, content: content == nil ? nil : {_ in content! })
-//    }
-//    
-//    public func text<T: Identifiable>(_ id: Int, color: ((T) -> Color)? = nil, content: String? = nil) -> ColumnContentInfo<T> {
-//        ColumnContentInfo(id: id, defaults: self, type: .text, color: color, content: content == nil ? nil : {_ in content! })
-//    }
 }
