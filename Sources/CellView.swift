@@ -42,11 +42,11 @@ struct CellView<T: Identifiable>: View {
                     if (column.title.alighnment == .center || column.title.alighnment == .trailing) {
                         Spacer(minLength: 0)
                     }
-                    if let titleText = column.title.text {
-                        CellContentView(type: .text, content: titleText, color: column.title.textColor, settings: settings)
-                    }
                     if let titleSystemImage = column.title.systemImage {
                         CellContentView(type: .sysemImage, content: titleSystemImage, color: column.title.textColor, settings: settings)
+                    }
+                    if let titleText = column.title.text {
+                        CellContentView(type: .text, content: titleText, color: column.title.textColor, settings: settings)
                     }
                     if (column.title.alighnment == .center || column.title.alighnment == .leading) {
                         Spacer(minLength: 0)
