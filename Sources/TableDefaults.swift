@@ -14,7 +14,7 @@ public struct TableDefaults {
     let titleBackColor: Color
     let titleAlighnment: HorizontalAlignment
     
-    init(color: Color, width: CGFloat, hoverColor: Color, handHover: Bool, clickColor: Color, columnContentColor: Color, columnContent: String, titleTextColor: Color, titleBackColor: Color, titleAlighnment: HorizontalAlignment) {
+    init(color: Color, width: CGFloat?, hoverColor: Color?, handHover: Bool, clickColor: Color, columnContentColor: Color, columnContent: String, titleTextColor: Color, titleBackColor: Color, titleAlighnment: HorizontalAlignment) {
         self.color = color
         self.width = width
         self.hoverColor = hoverColor
