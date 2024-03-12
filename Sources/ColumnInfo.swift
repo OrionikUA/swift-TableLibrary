@@ -31,12 +31,12 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
 }
 @available(macOS 14, *)
 extension TableDefaults {
-    public func createColumnInfo<T: Identifiable>(_ id: Int, contents: [ColumnContentInfo<T>], title: ColumnTitle, color: ((T) -> Color)? = nil, width: CGFloat? = nil, hoverColor: ((T) -> Color)? = nil, handHover: ((T) -> Bool)?, clickColor: ((T) -> Color)? = nil, clickAction: ((T) -> Void)? = nil) -> ColumnInfo<T> {
+    public func createColumnInfo<T: Identifiable>(_ id: Int, contents: [ColumnContentInfo<T>], title: ColumnTitle, color: ((T) -> Color)? = nil, width: CGFloat? = nil, hoverColor: ((T) -> Color)? = nil, handHover: ((T) -> Bool)? = nil, clickColor: ((T) -> Color)? = nil, clickAction: ((T) -> Void)? = nil) -> ColumnInfo<T> {
         
         let colorNotNil = color ?? { _ in self.color }
         let widthNotNil: CGFloat? = width ?? self.width
         let hoverColorNotNil = hoverColor ?? (self.hoverColor == nil ? nil : { _ in self.hoverColor! })
-        let handHover = handHover ?? {_ in self.handHover}
+        let handHover = handHover ?? {_ in self.handHover }
         let clickColor = clickColor ?? { _ in self.clickColor }
         return ColumnInfo(id: id, contents: contents, color: colorNotNil, width: widthNotNil, hoverColor: hoverColorNotNil, handHover: handHover, title: title, clickColor: clickColor, clickAction: clickAction)
     }
