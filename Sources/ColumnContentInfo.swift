@@ -38,15 +38,23 @@ extension ColumnContentInfo {
 @available(macOS 14, *)
 extension TableDefaults {
     
-        public func systemImage<T: Identifiable>(_ id: Int, content: String) -> ColumnContentInfo<T> {
-            ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: nil, content: {_ in content })
-        }
+    public func systemImage<T: Identifiable>(_ id: Int, content: String) -> ColumnContentInfo<T> {
+        ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: nil, content: {_ in content })
+    }
     
-        public func text<T: Identifiable>(_ id: Int, content: @escaping ((T) -> String)) -> ColumnContentInfo<T> {
-            ColumnContentInfo(id: id, defaults: self, type: .text, color: nil, content: content)
-        }
+    public func systemImage<T: Identifiable>(_ id: Int, color: @escaping (T) -> Color?, content: @escaping (T) -> String) -> ColumnContentInfo<T> {
+        ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color, content: content)
+    }
     
-        public func systemImage<T: Identifiable>(_ id: Int, color: @escaping (T) -> Color?, content: @escaping (T) -> String) -> ColumnContentInfo<T> {
-            ColumnContentInfo(id: id, defaults: self, type: .sysemImage, color: color, content: content)
-        }
+    public func text<T: Identifiable>(_ id: Int, content: @escaping (T) -> String) -> ColumnContentInfo<T> {
+        ColumnContentInfo(id: id, defaults: self, type: .text, color: nil, content: content)
+    }
+    
+    public func text<T: Identifiable>(_ id: Int, color: Color, content: @escaping (T) -> String) -> ColumnContentInfo<T> {
+        ColumnContentInfo(id: id, defaults: self, type: .text, color: {_ in color}, content: content)
+    }
+    
+    public func text<T: Identifiable>(_ id: Int, color: @escaping (T) -> Color, content: @escaping (T) -> String) -> ColumnContentInfo<T> {
+        ColumnContentInfo(id: id, defaults: self, type: .text, color: color, content: content)
+    }
 }
