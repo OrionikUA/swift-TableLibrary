@@ -75,6 +75,7 @@ struct CellView<T: Identifiable>: View {
                         ForEach(popover.verticalActions.sorted(by: { $0.key < $1.key }).map({ $0 }), id:\.key) { key, action in
                             Button {
                                 action.0(model)
+                                showPopover = false
                             } label: {
                                 Text(action.1)
                                     .conditionalFrame(width: popover.minActionWidth)
