@@ -9,6 +9,7 @@ struct CellView<T: Identifiable>: View {
     
     @State private var hoverState = false
     @State private var clickState = false
+    @State private var showPopover = false
     
     var isHeadLine: Bool {
         model == nil
@@ -59,13 +60,39 @@ struct CellView<T: Identifiable>: View {
         .conditionalFrame(width: column.width)
         .conditionalHandHover(show: !isHeadLine && column.handHover(model!), isHovering: $hoverState)
         .conditionalBackground(values: [headlineBackground, clickBackgrround, hoverBackground], defaultColor: defaultBackground)
-        .conditionalOnTapGesture(show: model != nil && column.clickAction != nil, action: { clickState = true; column.clickAction!(model!) })
+        .conditionalOnTapGesture(show: model != nil && (column.clickAction != nil || column.popover != nil), action: clickAction)
         .onChange(of: clickState) { oldValue, newValue in
             if (newValue) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                     clickState = false
                 }
             }
+        }
+        .popover(isPresented: $showPopover, content: {
+            if let popover = column.popover {
+                if let model = model {
+                    VStack {
+                        ForEach(popover.verticalActions.map({ $0 }), id:\.key) { key, action in
+                            Button {
+                                action(model)
+                            } label: {
+                                Text(key)
+                            }
+                        }
+                    }
+                    .simplePadding()
+                }
+            }
+        })
+    }
+    
+    func clickAction() {
+        clickState = true
+        if (column.clickAction != nil && model != nil) {
+            column.clickAction!(model!)
+        }
+        if (column.popover != nil) {
+            showPopover = true
         }
     }
 }
