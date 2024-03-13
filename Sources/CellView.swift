@@ -74,12 +74,13 @@ struct CellView<T: Identifiable>: View {
                     VStack {
                         ForEach(popover.verticalActions.sorted(by: { $0.key < $1.key }).map({ $0 }), id:\.key) { key, action in
                             Button {
-                                action.0(model)
+                                action.action(model)
                                 showPopover = false
                             } label: {
-                                Text(action.1)
+                                Text(action.name)
                                     .conditionalFrame(width: popover.minActionWidth)
                             }
+                            .disabled(!action.isActive(model))
                         }
                     }
                     .simplePadding()
