@@ -79,6 +79,7 @@ struct CellView<T: Identifiable>: View {
                             } label: {
                                 Text(action.name)
                                     .conditionalFrame(width: popover.minActionWidth)
+                                    .conditionalForegroundColor(color: action.color(model))
                             }
                             .disabled(!action.isActive(model))
                         }
