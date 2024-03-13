@@ -77,6 +77,7 @@ struct CellView<T: Identifiable>: View {
                                 action.0(model)
                             } label: {
                                 Text(action.1)
+                                    .conditionalFrame(width: popover.minActionWidth)
                             }
                         }
                     }
