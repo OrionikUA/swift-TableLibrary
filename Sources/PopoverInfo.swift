@@ -2,9 +2,9 @@ import Foundation
 
 @available(macOS 14, *)
 public struct PopoverInfo<T: Identifiable> {
-    let verticalActions: [String: (T) -> Void]
+    let verticalActions: [Int: ((T) -> Void, String)]
     
-    public init(verticalActions: [String: (T) -> Void]) {
+    public init(verticalActions: [Int: ((T) -> Void, String)]) {
         self.verticalActions = verticalActions
     }
 }

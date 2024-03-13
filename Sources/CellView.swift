@@ -72,11 +72,11 @@ struct CellView<T: Identifiable>: View {
             if let popover = column.popover {
                 if let model = model {
                     VStack {
-                        ForEach(popover.verticalActions.map({ $0 }), id:\.key) { key, action in
+                        ForEach(popover.verticalActions.sorted(by: { $0.key < $1.key }).map({ $0 }), id:\.key) { key, action in
                             Button {
-                                action(model)
+                                action.0(model)
                             } label: {
-                                Text(key)
+                                Text(action.1)
                             }
                         }
                     }
