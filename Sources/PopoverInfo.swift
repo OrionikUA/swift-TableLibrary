@@ -5,10 +5,12 @@ import SwiftUI
 public struct PopoverInfo<T: Identifiable> {
     let verticalActions: [Int: PopoverAction<T>]
     let minActionWidth: CGFloat?
+    let showInactiveActions: Bool
     
-    public init(verticalActions: [Int: PopoverAction<T>], minActionWidth: CGFloat? = nil) {
+    public init(verticalActions: [Int: PopoverAction<T>], minActionWidth: CGFloat? = nil, showInactiveActions: Bool = true) {
         self.verticalActions = verticalActions
         self.minActionWidth = minActionWidth
+        self.showInactiveActions = showInactiveActions
     }
 }
 @available(macOS 14, *)

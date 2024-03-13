@@ -73,15 +73,17 @@ struct CellView<T: Identifiable>: View {
                 if let model = model {
                     VStack {
                         ForEach(popover.verticalActions.sorted(by: { $0.key < $1.key }).map({ $0 }), id:\.key) { key, action in
-                            Button {
-                                action.action(model)
-                                showPopover = false
-                            } label: {
-                                Text(action.name)
-                                    .conditionalFrame(width: popover.minActionWidth)
-                                    .conditionalForegroundColor(color: action.color(model))
+                            if (popover.showInactiveActions || action.isActive(model)) {
+                                Button {
+                                    action.action(model)
+                                    showPopover = false
+                                } label: {
+                                    Text(action.name)
+                                        .conditionalFrame(width: popover.minActionWidth)
+                                        .conditionalForegroundColor(color: action.color(model))
+                                }
+                                .disabled(!action.isActive(model))
                             }
-                            .disabled(!action.isActive(model))
                         }
                     }
                     .simplePadding()
