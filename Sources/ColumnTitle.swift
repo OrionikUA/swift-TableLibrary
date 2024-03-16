@@ -20,7 +20,7 @@ public struct ColumnTitle {
 @available(macOS 14, *)
 extension TableDefaults {
     
-    public var empty: ColumnTitle {
+    public var emptyTitle: ColumnTitle {
         ColumnTitle(systemImage: nil, text: nil, textColor: .clear, backColor: .clear, alighnment: .center)
     }
     
