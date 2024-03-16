@@ -19,6 +19,11 @@ public struct ColumnTitle {
 
 @available(macOS 14, *)
 extension TableDefaults {
+    
+    public var empty: ColumnTitle {
+        ColumnTitle(systemImage: nil, text: nil, textColor: .clear, backColor: .clear, alighnment: .center)
+    }
+    
     public func text(_ inText: String, textColor: Color? = nil, backColor: Color? = nil, alighnment: HorizontalAlignment? = nil) -> ColumnTitle {
         let textColorNotNil = textColor ?? self.titleTextColor
         let backColorNotNil = backColor ?? self.titleBackColor
