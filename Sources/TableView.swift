@@ -39,8 +39,11 @@ public struct TableView<T: IdentifiableAndTransferable>: View {
                     if (!settings.hideHeadLine && !settings.lockHeadLine) {
                         TableLineView(columnsInfo: columnsInfo, model: nil, settings: settings)
                     }
+                    let firstItem = data.first
                     ForEach(data) { input in
-                        TableLineDivider(isSelected: isItemSelected(item: input))
+                        if (settings.addTopBorder || firstItem == nil || firstItem!.id != input.id) {
+                            TableLineDivider(isSelected: isItemSelected(item: input))
+                        }
                         TableLineView(columnsInfo: columnsInfo, model: input, settings: settings)
                             .conditionalDraggable(rowDrag != nil, item: input) {
                                 TableLineView(columnsInfo: columnsInfo, model: input, settings: settings)
@@ -61,7 +64,9 @@ public struct TableView<T: IdentifiableAndTransferable>: View {
                                 selectedItem = isTargeted ? input : nil
                             }
                     }
-                    TableLineDivider()
+                    if (settings.addBottomBorder) {
+                        TableLineDivider()
+                    }
                 }
             }
             .frame(maxHeight: .infinity)
