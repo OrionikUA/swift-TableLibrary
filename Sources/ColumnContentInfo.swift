@@ -61,4 +61,8 @@ extension TableDefaults {
     public func text<T: Identifiable>(_ id: Int, color: @escaping (T) -> Color, content: @escaping (T) -> String) -> ColumnContentInfo<T> {
         ColumnContentInfo(id: id, defaults: self, type: .text, color: color, content: content)
     }
+    
+    public func space<T: Identifiable>(_ id: Int, width: CGFloat? = nil) -> ColumnContentInfo<T> {
+        ColumnContentInfo<T>(id: id, defaults: self, type: .space(width: width ?? self.columnContentSpace))
+    }
 }

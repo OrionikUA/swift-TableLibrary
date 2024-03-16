@@ -17,6 +17,8 @@ struct CellContentView: View {
                 Image(systemName: content)
             } else if (type == .spacer) {
                 Spacer(minLength: 0)
+            } else if case let .space(width) = type {
+                Color.clear.frame(width: width)
             }
         }
         .conditionalForegroundColor(color: color)
