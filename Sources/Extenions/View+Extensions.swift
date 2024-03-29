@@ -43,11 +43,11 @@ extension View {
     func conditionalHandHover(show: Bool, isHovering: Binding<Bool>) -> some View {
         return AnyView(self.onHover { hover in
             isHovering.wrappedValue = hover
-            if hover && show {
-                NSCursor.pointingHand.set()
-            } else {
-                NSCursor.arrow.set()
-            }
+//            if hover && show {
+//                NSCursor.pointingHand.set()
+//            } else {
+//                NSCursor.arrow.set()
+//            }
         })
     }
     
