@@ -20,7 +20,7 @@ struct CellView<T: Identifiable>: View {
     }
     
     var hoverBackground: (Bool, Color) {
-        (!isHeadLine && column.handHover(model!) && hoverState && column.hoverColor != nil, isHeadLine || column.hoverColor == nil ? .clear : column.hoverColor!(model!))
+        (doHover && hoverState && column.hoverColor != nil, isHeadLine || column.hoverColor == nil ? .clear : column.hoverColor!(model!))
     }
     
     var headlineBackground: (Bool, Color) {
@@ -31,13 +31,17 @@ struct CellView<T: Identifiable>: View {
         isHeadLine ? .clear : column.color(model!)
     }
     
+    var doHover: Bool {
+        !isHeadLine && column.handHover(model!)
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             Spacer(minLength: 0)
             HStack(spacing: 0) {
                 if let model = model {
                     ForEach(column.contents.sorted(by: ColumnContentInfo.sorted)) { content in
-                        CellContentView(type: content.type, content: content.content(model), color: content.color(model), hoverContent: content.hoverContent?(model), hoverColor: content.hoverColor?(model), isHovered: hoverState, settings: settings)
+                        CellContentView(type: content.type, content: content.content(model), color: content.color(model), hoverContent: content.hoverContent?(model), hoverColor: content.hoverColor?(model), isHovered: doHover && hoverState, settings: settings)
                     }
                 } else {
                     if (column.title.alighnment == .center || column.title.alighnment == .trailing) {
@@ -58,7 +62,7 @@ struct CellView<T: Identifiable>: View {
         }
         .simplePadding()
         .conditionalFrame(width: column.width)
-        .conditionalHandHover(show: !isHeadLine && column.handHover(model!), isHovering: $hoverState)
+        .conditionalHandHover(show: doHover, isHovering: $hoverState)
         .conditionalBackground(values: [headlineBackground, clickBackgrround, hoverBackground], defaultColor: defaultBackground)
         .conditionalOnTapGesture(show: model != nil && (column.clickAction != nil || column.popover != nil), action: clickAction)
         .onChange(of: clickState) { oldValue, newValue in
