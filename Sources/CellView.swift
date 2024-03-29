@@ -37,17 +37,17 @@ struct CellView<T: Identifiable>: View {
             HStack(spacing: 0) {
                 if let model = model {
                     ForEach(column.contents.sorted(by: ColumnContentInfo.sorted)) { content in
-                        CellContentView(type: content.type, content: content.content(model), color: content.color(model), settings: settings)
+                        CellContentView(type: content.type, content: content.content(model), color: content.color(model), hoverContent: content.hoverContent?(model), hoverColor: content.hoverColor?(model), isHovered: hoverState, settings: settings)
                     }
                 } else {
                     if (column.title.alighnment == .center || column.title.alighnment == .trailing) {
                         Spacer(minLength: 0)
                     }
                     if let titleSystemImage = column.title.systemImage {
-                        CellContentView(type: .sysemImage, content: titleSystemImage, color: column.title.textColor, settings: settings)
+                        CellContentView(type: .sysemImage, content: titleSystemImage, color: column.title.textColor, hoverContent: nil, hoverColor: nil, isHovered: false, settings: settings)
                     }
                     if let titleText = column.title.text {
-                        CellContentView(type: .text, content: titleText, color: column.title.textColor, settings: settings)
+                        CellContentView(type: .text, content: titleText, color: column.title.textColor, hoverContent: nil, hoverColor: nil, isHovered: false, settings: settings)
                     }
                     if (column.title.alighnment == .center || column.title.alighnment == .leading) {
                         Spacer(minLength: 0)
