@@ -96,7 +96,8 @@ struct CellView<T: Identifiable>: View {
         })
     }
     
-    func clickAction() {
+    @MainActor func 
+    clickAction() {
         clickState = true
         if (column.clickAction != nil && model != nil) {
             column.clickAction!(model!)

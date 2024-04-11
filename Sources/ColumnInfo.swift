@@ -10,7 +10,7 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
     let hoverColor: ((T) -> Color)?
     let handHover: (T) -> Bool
     let title: ColumnTitle
-    let clickAction: ((T) -> Void)?
+    let clickAction: (@MainActor (T) -> Void)?
     let clickColor: ((T) -> Color)?
     let popover: PopoverInfo<T>?
     
@@ -18,7 +18,7 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
         return obj1.id < obj2.id
     }
     
-    public init(id: Int, contents: [ColumnContentInfo<T>], color: @escaping (T) -> Color, width: CGFloat?, hoverColor: ((T) -> Color)?, handHover: @escaping (T) -> Bool, title: ColumnTitle, popover: PopoverInfo<T>? = nil, clickColor: ((T) -> Color)?, clickAction: ((T) -> Void)? = nil) {
+    public init(id: Int, contents: [ColumnContentInfo<T>], color: @escaping (T) -> Color, width: CGFloat?, hoverColor: ((T) -> Color)?, handHover: @escaping (T) -> Bool, title: ColumnTitle, popover: PopoverInfo<T>? = nil, clickColor: ((T) -> Color)?, clickAction: (@MainActor (T) -> Void)? = nil) {
         self.id = id
         self.contents = contents
         self.color = color
@@ -33,7 +33,7 @@ public struct ColumnInfo<T: Identifiable>: Identifiable {
 }
 @available(macOS 14, *)
 extension TableDefaults {
-    public func createColumnInfo<T: Identifiable>(_ id: Int, contents: [ColumnContentInfo<T>], title: ColumnTitle, color: ((T) -> Color)? = nil, width: CGFloat? = nil, hoverColor: ((T) -> Color)? = nil, handHover: ((T) -> Bool)? = nil, popover: PopoverInfo<T>? = nil, clickColor: ((T) -> Color)? = nil, clickAction: ((T) -> Void)? = nil) -> ColumnInfo<T> {
+    public func createColumnInfo<T: Identifiable>(_ id: Int, contents: [ColumnContentInfo<T>], title: ColumnTitle, color: ((T) -> Color)? = nil, width: CGFloat? = nil, hoverColor: ((T) -> Color)? = nil, handHover: ((T) -> Bool)? = nil, popover: PopoverInfo<T>? = nil, clickColor: ((T) -> Color)? = nil, clickAction:  (@MainActor (T) -> Void)? = nil) -> ColumnInfo<T> {
         
         let colorNotNil = color ?? { _ in self.color }
         let widthNotNil: CGFloat? = width ?? self.width
