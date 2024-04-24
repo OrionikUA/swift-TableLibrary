@@ -34,7 +34,7 @@ public struct TableView<T: IdentifiableAndTransferable>: View {
                 TableLineView(columnsInfo: columnsInfo, model: nil, settings: settings)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     if (!settings.hideHeadLine && !settings.lockHeadLine) {
                         TableLineView(columnsInfo: columnsInfo, model: nil, settings: settings)
