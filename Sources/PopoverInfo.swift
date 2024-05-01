@@ -15,12 +15,12 @@ public struct PopoverInfo<T: Identifiable> {
 }
 @available(macOS 14, *)
 public struct PopoverAction<T: Identifiable> {
-    let action: (T) -> Void
+    let action: @MainActor (T) -> Void
     let isActive: (T) -> Bool
     let color: (T) -> Color?
     let name: String
     
-    public init(action: @escaping (T) -> Void, isActive: @escaping (T) -> Bool = {_ in true}, name: String, color: @escaping (T) -> Color? = {_ in nil}) {
+    public init(action: @MainActor @escaping (T) -> Void, isActive: @escaping (T) -> Bool = {_ in true}, name: String, color: @escaping (T) -> Color? = {_ in nil}) {
         self.action = action
         self.isActive = isActive
         self.name = name
