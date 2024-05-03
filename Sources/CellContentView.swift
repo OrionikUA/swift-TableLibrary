@@ -12,8 +12,28 @@ struct CellContentView: View {
     let hoverColor: Color?
     let isHovered: Bool
     let settings: TableSettings
+    let disableColor: Color?
+    let disableContent: String?
+    let disable: Bool
+    
+    init(type: ColumnContentType, content: String, color: Color?, hoverContent: String?, hoverColor: Color?, isHovered: Bool, settings: TableSettings, disableColor: Color?, disableContent: String?, disable: Bool = false) {
+        self.type = type
+        self.content = content
+        self.color = color
+        self.hoverContent = hoverContent
+        self.hoverColor = hoverColor
+        self.isHovered = isHovered
+        self.settings = settings
+        self.disableColor = disableColor
+        self.disableContent = disableContent
+        self.disable = disable
+    }
     
     var calcContent: String {
+        if (disable && disableContent != nil) {
+            return disableContent!
+        }
+        
         if (isHovered && hoverContent != nil) {
             return hoverContent!
         }
@@ -21,6 +41,10 @@ struct CellContentView: View {
     }
     
     var calcColor: Color? {
+        if (disable && disableColor != nil) {
+            return disableColor!
+        }
+        
         if (isHovered && hoverColor != nil) {
             return hoverColor!
         }

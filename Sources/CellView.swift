@@ -19,6 +19,13 @@ struct CellView<T: Identifiable>: View {
         (clickState && column.clickColor != nil && !isHeadLine, column.clickColor != nil && !isHeadLine ? column.clickColor!(model!) : .clear)
     }
     
+    var disableBackGround: (Bool, Color) {
+        if (model != nil && column.disable?(model!) ?? false) {
+            return (true, column.disableColor?(model!) ?? defaultBackground)
+        }
+        return (false, Color.clear)
+    }
+    
     var hoverBackground: (Bool, Color) {
         (doHover && hoverState && column.hoverColor != nil, isHeadLine || column.hoverColor == nil ? .clear : column.hoverColor!(model!))
     }
@@ -41,17 +48,17 @@ struct CellView<T: Identifiable>: View {
             HStack(spacing: 0) {
                 if let model = model {
                     ForEach(column.contents.sorted(by: ColumnContentInfo.sorted)) { content in
-                        CellContentView(type: content.type, content: content.content(model), color: content.color(model), hoverContent: content.hoverContent?(model), hoverColor: content.hoverColor?(model), isHovered: doHover && hoverState, settings: settings)
+                        CellContentView(type: content.type, content: content.content(model), color: content.color(model), hoverContent: content.hoverContent?(model), hoverColor: content.hoverColor?(model), isHovered: doHover && hoverState, settings: settings, disableColor: content.disableColor?(model), disableContent: content.disableContent?(model), disable: column.disable?(model) ?? false)
                     }
                 } else {
                     if (column.title.alighnment == .center || column.title.alighnment == .trailing) {
                         Spacer(minLength: 0)
                     }
                     if let titleSystemImage = column.title.systemImage {
-                        CellContentView(type: .sysemImage, content: titleSystemImage, color: column.title.textColor, hoverContent: nil, hoverColor: nil, isHovered: false, settings: settings)
+                        CellContentView(type: .sysemImage, content: titleSystemImage, color: column.title.textColor, hoverContent: nil, hoverColor: nil, isHovered: false, settings: settings, disableColor: nil, disableContent: nil)
                     }
                     if let titleText = column.title.text {
-                        CellContentView(type: .text, content: titleText, color: column.title.textColor, hoverContent: nil, hoverColor: nil, isHovered: false, settings: settings)
+                        CellContentView(type: .text, content: titleText, color: column.title.textColor, hoverContent: nil, hoverColor: nil, isHovered: false, settings: settings, disableColor: nil, disableContent: nil)
                     }
                     if (column.title.alighnment == .center || column.title.alighnment == .leading) {
                         Spacer(minLength: 0)
@@ -63,7 +70,7 @@ struct CellView<T: Identifiable>: View {
         .simplePadding()
         .conditionalFrame(width: column.width)
         .conditionalHandHover(show: doHover, isHovering: $hoverState)
-        .conditionalBackground(values: [headlineBackground, clickBackgrround, hoverBackground], defaultColor: defaultBackground)
+        .conditionalBackground(values: [headlineBackground, disableBackGround, clickBackgrround, hoverBackground], defaultColor: defaultBackground)
         .conditionalOnTapGesture(show: model != nil && (column.clickAction != nil || column.popover != nil), action: clickAction)
         .onChange(of: clickState) { oldValue, newValue in
             if (newValue) {
