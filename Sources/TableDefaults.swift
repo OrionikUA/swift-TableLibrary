@@ -14,8 +14,9 @@ public struct TableDefaults {
     public let titleTextColor: Color
     public let titleBackColor: Color
     public let titleAlighnment: HorizontalAlignment
+    public let disableContentColor: Color
     
-    public init(color: Color, width: CGFloat?, hoverColor: Color?, handHover: Bool, clickColor: Color, columnContentColor: Color, columnContent: String, columnContentSpace: CGFloat, titleTextColor: Color, titleBackColor: Color, titleAlighnment: HorizontalAlignment) {
+    public init(color: Color, width: CGFloat?, hoverColor: Color?, handHover: Bool, clickColor: Color, columnContentColor: Color, columnContent: String, columnContentSpace: CGFloat, titleTextColor: Color, titleBackColor: Color, titleAlighnment: HorizontalAlignment, disableContentColor: Color = .gray) {
         self.color = color
         self.width = width
         self.hoverColor = hoverColor
@@ -27,5 +28,6 @@ public struct TableDefaults {
         self.titleTextColor = titleTextColor
         self.titleBackColor = titleBackColor
         self.titleAlighnment = titleAlighnment
+        self.disableContentColor = disableContentColor
     }
 }

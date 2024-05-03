@@ -35,7 +35,7 @@ public struct ColumnContentInfo<T>: Identifiable {
         self.content = content ?? {_ in defaults.columnContent}
         self.hoverColor = hoverColor
         self.hoverContent = hoverContent
-        self.disableColor = disableColor
+        self.disableColor = disableColor ?? { _ in defaults.disableContentColor }
         self.disableContent = disableContent
     }
 }
