@@ -15,6 +15,13 @@ struct CellView<T: Identifiable>: View {
         model == nil
     }
     
+    var enable: Bool {
+        if (model != nil && column.disable?(model!) ?? false) {
+            return false
+        }
+        return true
+    }
+    
     var clickBackgrround: (Bool, Color) {
         (clickState && column.clickColor != nil && !isHeadLine, column.clickColor != nil && !isHeadLine ? column.clickColor!(model!) : .clear)
     }
@@ -69,9 +76,9 @@ struct CellView<T: Identifiable>: View {
         }
         .simplePadding()
         .conditionalFrame(width: column.width)
-        .conditionalHandHover(show: doHover, isHovering: $hoverState)
+        .conditionalHandHover(show: doHover && enable, isHovering: $hoverState)
         .conditionalBackground(values: [headlineBackground, disableBackGround, clickBackgrround, hoverBackground], defaultColor: defaultBackground)
-        .conditionalOnTapGesture(show: model != nil && (column.clickAction != nil || column.popover != nil), action: clickAction)
+        .conditionalOnTapGesture(show: model != nil && (column.clickAction != nil || column.popover != nil) && enable, action: clickAction)
         .onChange(of: clickState) { oldValue, newValue in
             if (newValue) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
@@ -103,8 +110,11 @@ struct CellView<T: Identifiable>: View {
         })
     }
     
-    @MainActor func 
-    clickAction() {
+    @MainActor func clickAction() {
+        if (!enable) {
+            return
+        }
+        
         clickState = true
         if (column.clickAction != nil && model != nil) {
             column.clickAction!(model!)
