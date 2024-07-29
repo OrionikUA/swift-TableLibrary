@@ -56,6 +56,7 @@ struct CellContentView: View {
             if (type == .text) {
                 Text(calcContent)
                     .conditionalMultiLine(settings.multiLine)
+                    .help(calcContent)
             } else if (type == .sysemImage) {
                 Image(systemName: calcContent)
             } else if (type == .spacer) {

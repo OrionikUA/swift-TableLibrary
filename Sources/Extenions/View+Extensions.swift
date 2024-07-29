@@ -96,4 +96,12 @@ extension View {
             return AnyView(self)
         }
     }
+    
+    func conditionalHelp(text: String?) -> some View {
+        if let text = text {
+            return AnyView(self.help(text))
+        } else {
+            return AnyView(self)
+        }
+    }
 }
